@@ -9,7 +9,7 @@ if (!isset($_SESSION['user_id'])) {
 ?>
 
 <?php
-include('./connect.php');
+include('connect.php');
 try{
 
     if(isset($_POST['att'])){
