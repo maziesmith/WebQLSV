@@ -2,7 +2,7 @@
 include('connect.php'); //connect to database
 session_start();
 $message = "";
-
+//login code
 //check if session exist
 if (isset($_SESSION['user_id'])) {
     //check if permission exist in session
