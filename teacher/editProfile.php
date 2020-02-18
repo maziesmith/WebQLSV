@@ -7,11 +7,28 @@ session_start();
 //check if session is not valid
 if (!isset($_SESSION['user_id'])) {
     header('location: ../login.php');
-}
-else{
-    $id=$_SESSION['user_id']; //get id from session
-    $result=GetGVById($id); //get user from id
-    if(isset($_POST['submit'])){
+} else {
+    $id = $_SESSION['user_id']; //get id from session
+    $result = GetGVById($id); //get user from id
+    //default values for textbox
+    $default_username = "";
+    $default_password = "";
+    $default_name = "";
+    $default_email = "";
+    $default_sdt = "";
+    $default_khoa = "";
+    $default_year = "";
+    //set value for default values if had user
+    if ($result !== false) {
+        $default_username = htmlspecialchars($result['Username']);
+        $default_password = htmlspecialchars($result['Password']);
+        $default_name = htmlspecialchars($result['HoTen']);
+        $default_email = htmlspecialchars($result['Email']);
+        $default_sdt = htmlspecialchars($result['SĐT']);
+        $default_khoa = htmlspecialchars($result['Khoa']);
+        $default_year = htmlspecialchars($result['NamKinhNghiem']);
+    }
+    if (isset($_POST['submit'])) {
         try {
             //check form data and empty field
             if (empty($_POST['username'])) {
@@ -20,12 +37,10 @@ else{
             if (empty($_POST['password'])) {
                 throw new Exception("Password không được để trống");
             }
-            if(empty($_POST['name']))
-            {
+            if (empty($_POST['name'])) {
                 throw new Exception("Họ tên không được để trống");
             }
-            if(empty($_POST['email']))
-            {
+            if (empty($_POST['email'])) {
                 throw new Exception("Email không được để trống");
             }
             if (empty($_POST['sdt'])) {
@@ -34,8 +49,7 @@ else{
             if (empty($_POST['khoa'])) {
                 throw new Exception("Khoa không được để trống");
             }
-            if(empty($_POST['namkinhnghiem']))
-            {
+            if (empty($_POST['namkinhnghiem'])) {
                 throw new Exception("Năm kinh nghiệm không được để trống");
             }
             //delete space and special char in form data
@@ -50,14 +64,12 @@ else{
             if ($edit === false) {
                 throw new Exception("Something wrong, try again!"); //error messenge
                 header('location: editProfile.php');
-            }
-            else{
+            } else {
                 $success_msg = 'Updated  successfully'; //success messenge
                 header('location: teachers.php'); //redirect to list teacher
                 exit();
             }
-        }
-        catch (Exception $e) {
+        } catch (Exception $e) {
             $error_msg = $e->getMessage();
         }
     }
@@ -109,12 +121,10 @@ else{
 
             <!-- Error or Success Message printint started --><p>
                 <?php
-                if(isset($success_msg))
-                {
+                if (isset($success_msg)) {
                     echo $success_msg;
                 }
-                if(isset($error_msg))
-                {
+                if (isset($error_msg)) {
                     echo $error_msg;
                 }
                 ?>
@@ -125,49 +135,56 @@ else{
                 <div class="form-group">
                     <label for="input1" class="col-sm-3 control-label">Username</label>
                     <div class="col-sm-7">
-                        <input type="text" name="username" class="form-control" id="input1" value=<?php echo $result['Username'];?>/>
+                        <input type="text" name="username" class="form-control" id="input1" placeholder="Username"
+                               value="<?=$default_username?>"> <!--set php string variable contain space for value attribute-->
                     </div>
                 </div>
 
                 <div class="form-group">
                     <label for="input1" class="col-sm-3 control-label">Password</label>
                     <div class="col-sm-7">
-                        <input type="password" name="password" class="form-control" id="input1" value=<?php echo $result['Password']; ?>/>
+                        <input type="password" name="password" class="form-control" id="input1" placeholder="Password"
+                               value="<?=$default_password?>">
                     </div>
                 </div>
 
                 <div class="form-group">
                     <label for="input1" class="col-sm-3 control-label">Họ Tên</label>
                     <div class="col-sm-7">
-                        <input type="text" name="name" class="form-control" id="input1" value=<?php echo $result['HoTen'];?>/>
+                        <input type="text" name="name" class="form-control" id="input1" placeholder="Họ Tên"
+                               value="<?=$default_name?>">
                     </div>
                 </div>
 
                 <div class="form-group">
                     <label for="input1" class="col-sm-3 control-label">Email</label>
                     <div class="col-sm-7">
-                        <input type="text" name="email" class="form-control" id="input1" value=<?php echo $result['Email'];?>/>
+                        <input type="text" name="email" class="form-control" id="input1" placeholder="Email"
+                               value="<?=$default_email?>">
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <label for="input1" class="col-sm-3 control-label">Số điện thoại</label>
+                    <label for="input1" class="col-sm-3 control-label">Số Điện Thoại</label>
                     <div class="col-sm-7">
-                        <input type="text" name="sdt" class="form-control" id="input1" value=<?php echo $result['SĐT'];?>/>
+                        <input type="text" name="sdt" class="form-control" id="input1" placeholder="Số Điện Thoại"
+                               value="<?=$default_sdt?>">
                     </div>
                 </div>
 
                 <div class="form-group">
                     <label for="input1" class="col-sm-3 control-label">Khoa</label>
                     <div class="col-sm-7">
-                        <input type="text" name="khoa" class="form-control" id="input1" value=<?php echo $result['Khoa']; ?>/>
+                        <input type="text" name="khoa" class="form-control" id="input1" placeholder="Khoa"
+                               value="<?=$default_khoa?>">
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <label for="input1" class="col-sm-3 control-label">Năm kinh nghiệm</label>
+                    <label for="input1" class="col-sm-3 control-label">Năm Kinh Nghiệm</label>
                     <div class="col-sm-7">
-                        <input type="text" name="namkinhnghiem" class="form-control" id="input1" value=<?php echo $result['NamKinhNghiem']; ?>/>
+                        <input type="text" name="namkinhnghiem" class="form-control" id="input1" placeholder="Năm Kinh Nghiệm"
+                               value="<?=$default_year?>">
                     </div>
 
                     <input type="submit" class="btn btn-primary col-md-3 col-md-offset-7" value="Submit" name="submit"/>
