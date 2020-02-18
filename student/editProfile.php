@@ -112,7 +112,7 @@ if (!isset($_SESSION['user_id'])) {
                     <label for="input1" class="col-sm-3 control-label">Họ Tên</label>
                     <div class="col-sm-7">
                         <input type="text" name="name" class="form-control" id="input1" placeholder="Họ Tên"
-                               value="<?= $default_name ?>">>
+                               value="<?= $default_name ?>">
                         <!--set php string variable contain space for value attribute-->
                     </div>
                 </div>
@@ -121,7 +121,7 @@ if (!isset($_SESSION['user_id'])) {
                     <label for="input1" class="col-sm-3 control-label">Email</label>
                     <div class="col-sm-7">
                         <input type="text" name="email" class="form-control" id="input1" placeholder="Email"
-                               value="<?= $default_email ?>">>
+                               value="<?= $default_email ?>">
                     </div>
                 </div>
 
@@ -129,7 +129,7 @@ if (!isset($_SESSION['user_id'])) {
                     <label for="input1" class="col-sm-3 control-label">Số điện thoại</label>
                     <div class="col-sm-7">
                         <input type="text" name="sdt" class="form-control" id="input1" placeholder="Số Điện Thoại"
-                               value="<?= $default_sdt ?>">>
+                               value="<?= $default_sdt ?>">
                     </div>
                 </div>
 
@@ -137,7 +137,7 @@ if (!isset($_SESSION['user_id'])) {
                     <label for="input1" class="col-sm-3 control-label">Password</label>
                     <div class="col-sm-7">
                         <input type="password" name="password" class="form-control" id="input1" placeholder="Password"
-                               value="<?= $default_password ?>">>
+                               value="<?= $default_password ?>">
                     </div>
                 </div>
                 <input type="submit" class="btn btn-primary col-md-3 col-md-offset-7" value="Submit" name="submit"/>
