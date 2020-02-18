@@ -7,8 +7,7 @@ session_start();
 //check if session is not valid
 if (!isset($_SESSION['user_id'])) {
     header('location: ../login.php');
-}
-else{
+} else {
     $result = "";
     if (isset($_POST['search'])) {
         try {
@@ -23,7 +22,7 @@ else{
                 throw new Exception("This ID is not exist, try again!"); //error messenge
                 header('location: editProfileStudent.php');
             } else {
-                $_SESSION['IdStd_edit']=$id; //save Id of student who need to edit profile to session
+                $_SESSION['IdStd_edit'] = $id; //save Id of student who need to edit profile to session
                 header('location:editProfileStudentForm.php'); //redirect to form edit
                 exit();
             }
@@ -58,7 +57,6 @@ else{
 <header>
 
     <h1>Online Attendance Management System 1.0</h1>
-    ?>
     <div class="navbar">
         <a href="index.php">Home</a>
         <a href="students.php">Students</a>
@@ -80,8 +78,7 @@ else{
             <br>
             <!-- Error or Success Message printint started --><p>
                 <?php
-                if(isset($error_msg))
-                {
+                if (isset($error_msg)) {
                     echo $error_msg;
                 }
                 ?>
@@ -90,12 +87,6 @@ else{
                 <label>Student ID</label>
                 <input type="text" name="id">
                 <input type="submit" name="search" value="Go!">
-                <?php
-                //printing error message
-                if (isset($error_msg)) {
-                    echo "<br>".$error_msg;
-                }
-                ?>
             </form>
             <br>
         </div>
